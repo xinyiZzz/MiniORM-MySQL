@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-name: 格式化拼接SQL语句，v2.2
+name: 格式化拼接SQL语句 v2.2
 author：XinYi
 Time: 2015.9.3
 
@@ -462,9 +462,9 @@ if __name__ == '__main__':
     # 批量插入举例
     '''
     table_name = 'followers_big'
-    fields1 = {'uid': 's'}
-    param = (('58702612',), ('216623537',), ('224943591',))
-    print mysql_handle.batch_insert('followers_big', fields1, param)
+    fields = [('url_hash', 's'), ('url', 's')]
+    param = (('1111','www.baidu.com'), ('2222','www.baidu2.com'))
+    print mysql_handle.batch_insert(table_name, fields, param)
 
     '''
 
