@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 name: 格式化拼接SQL语句 v2.2
-author：XinYi
+author：XinYi  609610350@qq.com
 Time: 2015.9.3
 
 输入：
