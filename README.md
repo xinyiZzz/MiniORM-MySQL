@@ -11,8 +11,9 @@
 
 ## 使用范例
 
-mysql_handle = MysqlHandleBase(mysql_host='172.31.137.209', mysql_user='root', mysql_password='',
-                               mysql_db='Phishing')
+- 数据库连接
+
+	mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',mysql_db='')
 
 - 查询举例
 ```
@@ -86,5 +87,6 @@ print mysql_handle.batch_delete(table_name, fields_list, wheres_list)
 ```
 
 ## 联系方式
+
 
 609610350@qq.com
