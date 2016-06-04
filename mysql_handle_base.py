@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
 name: 格式化拼接SQL语句 v2.2
-author：XinYi  609610350@qq.com
+Author：XinYi 609610350@qq.com
 Time: 2015.9.3
 
 输入：
@@ -60,7 +60,7 @@ def deal_other_error():
             try:
                 return func(self, *args)
             except:
-                logger.error('*args: %s' % args)
+                logger.error('*args: ' + str(args))
                 traceback.print_exc()
                 return False
         return __deco
@@ -92,7 +92,6 @@ class MysqlHandleBase():
         self.mysql_user = mysql_user
         self.mysql_password = mysql_password
         self.mysql_db = mysql_db
-        self.connect_MySQL()
 
     def __del__(self):
         '''
@@ -112,7 +111,7 @@ class MysqlHandleBase():
         # 一旦该表后面插入了新数据，之前的连接就会查不到新数据
         # 所以根据情况，一般情况下最好开启 autocommit
         self.db_conn.autocommit(True)
-        logger.info('connect mysql win, ip: %s' % self.mysql_host)
+        logger.debug('connect mysql win, ip: %s' % self.mysql_host)
         return True
 
     @deal_mysql_error()
@@ -120,7 +119,10 @@ class MysqlHandleBase():
         '''
         断开数据库连接
         '''
-        self.db_conn.close()
+        try:
+            self.db_conn.close()
+        except:
+            pass
         return True
 
     def sql_escape(self, string):
@@ -269,6 +271,7 @@ class MysqlHandleBase():
         return_id：是否返回最后插入行的主键ID
         '''
         try:
+            self.connect_MySQL()
             self.cur = self.db_conn.cursor()
             if require_type == 'get':
                 self.cur.execute(sql)
@@ -307,6 +310,8 @@ class MysqlHandleBase():
                 return self.operate_mysql(sql, param, require_type, return_id, fetch_type)
             else:
                 return False
+        finally:
+            self.close_connnection()
 
     def select(self, table_name=None, fields=[], wheres={}, sql=None, fetch_type='one', orders='', limits=''):
         '''
@@ -318,7 +323,7 @@ class MysqlHandleBase():
            wheres：构造查询sql语句，如：{'task_id': [1, 'd']}
         公用参数：
         fetch_type: 查询后返回数量，one表示返回一条，all表示返回所有查询结果
-        orders: 排序，例如：'ASC', 'DESC'
+        orders: 排序，例如：'order_field ASC', 'order_field DESC'
         limits: 返回个数限制，例如：'5'
         '''
         if sql is None:
@@ -327,7 +332,7 @@ class MysqlHandleBase():
                 return False
         results = self.operate_mysql(
             sql, require_type='get', fetch_type=fetch_type)
-        if results is None:
+        if results is None or results == ():
             return False
         return results
 
@@ -416,9 +421,9 @@ class MysqlHandleBase():
 
 
 if __name__ == '__main__':
-    mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',
-                                   mysql_db='test')
-
+    mysql_handle = MysqlHandleBase(mysql_host='172.31.137.209', mysql_user='root', mysql_password='',
+                                   mysql_db='Phishing')
+    
     # 查询举例
     '''
     table_name = 'gray_list'
@@ -429,7 +434,13 @@ if __name__ == '__main__':
     '''
     '''sql = "SELECT * FROM followers_big ORDER BY id LIMIT 10"
     select_result = mysql_handle.select(sql=sql, fetch_type='all')
-    print select_result'''
+    print select_result
+    '''
+    '''
+    table_name = 'server_live'
+    engine_type = '01'
+    print mysql_handle.select(table_name, fields=['engine_num'], wheres={'type': [engine_type, 's']}, fetch_type='one', orders='engine_num DESC')
+    '''
 
     # 更新举例
     '''
@@ -464,6 +475,8 @@ if __name__ == '__main__':
     table_name = 'followers_big'
     fields = [('url_hash', 's'), ('url', 's')]
     param = (('1111','www.baidu.com'), ('2222','www.baidu2.com'))
+    # fields = [('url_hash', 's')]
+    # param = (('1111',), ('2222',))
     print mysql_handle.batch_insert(table_name, fields, param)
 
     '''
