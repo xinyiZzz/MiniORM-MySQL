@@ -5,17 +5,18 @@
 * * *
 
 
-## 系统功能
+## system function/系统功能
 
+By joining together the SQL statement, lightweight MySQL ORM  
 通过拼接SQL语句，实现轻量级MySQL ORM
 
-## 使用范例
+## Use examples/使用范例
 
-- 数据库连接
+- database connection/数据库连接
 
 	mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',mysql_db='')
 
-- 查询举例
+- Query example/查询举例
 ```
 table_name = 'gray_list'
 fields = ['url']
@@ -34,7 +35,7 @@ engine_type = '01'
 print mysql_handle.select(table_name, fields=['engine_num'], wheres={'type': [engine_type, 's']}, fetch_type='one', orders='engine_num DESC')
 ```
 
-- 更新举例
+- Update example/更新举例
 ```
 table_name = 'task_result'
 fields = {'task_state': [2, 'd']}  # wait to update fields
@@ -43,7 +44,7 @@ result = mysql_handle.update(table_name, fields, wheres)
 print result
 ```
 
-- 插入举例
+- Insert example/插入举例
 ```
 table_name = 'task_info'
 fields = {'task_id': [54, 'd'], 'task_type': [
@@ -52,7 +53,7 @@ result = mysql_handle.insert(table_name, fields)
 print result
 ```
 
-- 删除举例
+- Del example/删除举例
 ```
 table_name = 'task_info'
 wheres = {'task_id': [46, 'd']}  # select condition
@@ -61,7 +62,7 @@ result = mysql_handle.delete(
 print result
 ```
 
-- 批量插入举例
+- Batch insert example/批量插入举例
 ```
 table_name = 'followers_big'
 fields = [('url_hash', 's'), ('url', 's')]
@@ -71,14 +72,14 @@ param = (('1111','www.baidu.com'), ('2222','www.baidu2.com'))
 print mysql_handle.batch_insert(table_name, fields, param)
 ```
 
-- 批量删除举例
+- Batch del example/批量删除举例
 ```
 table_name = 'followers_big'
 wheres_list = [{'id': [154, 'd']}, {'id': [155, 'd']}]
 print mysql_handle.batch_delete(table_name, wheres_list)
 ```
 
-- 批量更新举例
+- Update example/批量更新举例
 ```
 table_name = 'followers_big'
 fields_list = [{'uid': [1, 's']}, {'uid': [2, 's']}]
@@ -86,7 +87,7 @@ wheres_list = [{'id': [154, 'd']}, {'id': [155, 'd']}]
 print mysql_handle.batch_delete(table_name, fields_list, wheres_list)
 ```
 
-## 联系方式
+## contact/联系方式
 
 
 609610350@qq.com
