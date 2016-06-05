@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 '''
-name: 格式化拼接SQL语句 v2.2
+name: 格式化拼接SQL语句 v2.2  https://github.com/xinyi-spark/MiniORM-MySQL
 Author：XinYi 609610350@qq.com
 Time: 2015.9.3
 
@@ -301,7 +301,8 @@ class MysqlHandleBase():
             # 1062错误：Duplicate entry XX for key 'PRIMARY，说明目标记录已插入，主键冲突。
             # 上次错误可能为2006或2013，即mysql链接断开，但指令已执行成功，
             if e.args[0] != 2006 and e.args[0] != 2013:
-                logger.error('operate_mysql error, sql: %s' % sql)
+                logger.error('operate_mysql error, sql: %s, param: %s, require_type: %s, return_id: %s, fetch_type: %s' % (
+                    sql, param, require_type, return_id, fetch_type))
                 traceback.print_exc()
                 return False
             # 连接MySQL服务器超时，则重新连接，如果重新连接失败，说明数据库出现其他问题，则退出程序
@@ -421,9 +422,8 @@ class MysqlHandleBase():
 
 
 if __name__ == '__main__':
-    mysql_handle = MysqlHandleBase(mysql_host='172.31.137.209', mysql_user='root', mysql_password='',
-                                   mysql_db='Phishing')
-    
+    mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',
+                                   mysql_db='')
     # 查询举例
     '''
     table_name = 'gray_list'
