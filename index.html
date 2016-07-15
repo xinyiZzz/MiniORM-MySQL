@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Miniorm-mysql : Based on the MySQLdb provide formatting Mysql light-weight ORM/基于MySQLdb提供格式化操作Mysql的轻量级ORM">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Miniorm-mysql</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/xinyi-spark/MiniORM-MySQL">View on GitHub</a>
+
+          <h1 id="project_title">Miniorm-mysql</h1>
+          <h2 id="project_tagline">Based on the MySQLdb provide formatting Mysql light-weight ORM/基于MySQLdb提供格式化操作Mysql的轻量级ORM</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/xinyi-spark/MiniORM-MySQL/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/xinyi-spark/MiniORM-MySQL/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a id="june-2-2016-914-am" class="anchor" href="#june-2-2016-914-am" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>June 2 2016 9:14 AM</h2>
+
+<h1>
+<a id="minimysql-mysqlorm" class="anchor" href="#minimysql-mysqlorm" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MiniMySQL-MysqlORM</h1>
+
+<hr>
+
+<h2>
+<a id="system-function系统功能" class="anchor" href="#system-function%E7%B3%BB%E7%BB%9F%E5%8A%9F%E8%83%BD" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>system function/系统功能</h2>
+
+<p>By joining together the SQL statement, lightweight MySQL ORM<br>
+通过拼接SQL语句，实现轻量级MySQL ORM</p>
+
+<h2>
+<a id="use-examples使用范例" class="anchor" href="#use-examples%E4%BD%BF%E7%94%A8%E8%8C%83%E4%BE%8B" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use examples/使用范例</h2>
+
+<ul>
+<li>
+<p>database connection/数据库连接</p>
+
+<p>mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',mysql_db='')</p>
+</li>
+<li><p>Query example/查询举例</p></li>
+</ul>
+
+<pre><code>table_name = 'gray_list'
+fields = ['url']
+select_result = mysql_handle.select(
+    table_name, fields=fields, fetch_type='all')
+print select_result
+</code></pre>
+
+<pre><code>sql = "SELECT * FROM followers_big ORDER BY id LIMIT 10"
+select_result = mysql_handle.select(sql=sql, fetch_type='all')
+print select_result
+</code></pre>
+
+<pre><code>table_name = 'server_live'
+engine_type = '01'
+print mysql_handle.select(table_name, fields=['engine_num'], wheres={'type': [engine_type, 's']}, fetch_type='one', orders='engine_num DESC')
+</code></pre>
+
+<ul>
+<li>Update example/更新举例</li>
+</ul>
+
+<pre><code>table_name = 'task_result'
+fields = {'task_state': [2, 'd']}  # wait to update fields
+wheres = {'task_id': [3, 'd'], 'start_time': ['2015-06-11 11:22:53', 's']}
+result = mysql_handle.update(table_name, fields, wheres)
+print result
+</code></pre>
+
+<ul>
+<li>Insert example/插入举例</li>
+</ul>
+
+<pre><code>table_name = 'task_info'
+fields = {'task_id': [54, 'd'], 'task_type': [
+    2, 'd'], 'task_engine': ['01-02', 's']}  # wait to insert fields
+result = mysql_handle.insert(table_name, fields)
+print result
+</code></pre>
+
+<ul>
+<li>Del example/删除举例</li>
+</ul>
+
+<pre><code>table_name = 'task_info'
+wheres = {'task_id': [46, 'd']}  # select condition
+result = mysql_handle.delete(
+    table_name, wheres=wheres)
+print result
+</code></pre>
+
+<ul>
+<li>Batch insert example/批量插入举例</li>
+</ul>
+
+<pre><code>table_name = 'followers_big'
+fields = [('url_hash', 's'), ('url', 's')]
+param = (('1111','www.baidu.com'), ('2222','www.baidu2.com'))
+# fields = [('url_hash', 's')]
+# param = (('1111',), ('2222',))
+print mysql_handle.batch_insert(table_name, fields, param)
+</code></pre>
+
+<ul>
+<li>Batch del example/批量删除举例</li>
+</ul>
+
+<pre><code>table_name = 'followers_big'
+wheres_list = [{'id': [154, 'd']}, {'id': [155, 'd']}]
+print mysql_handle.batch_delete(table_name, wheres_list)
+</code></pre>
+
+<ul>
+<li>Update example/批量更新举例</li>
+</ul>
+
+<pre><code>table_name = 'followers_big'
+fields_list = [{'uid': [1, 's']}, {'uid': [2, 's']}]
+wheres_list = [{'id': [154, 'd']}, {'id': [155, 'd']}]
+print mysql_handle.batch_delete(table_name, fields_list, wheres_list)
+</code></pre>
+
+<h2>
+<a id="contact联系方式" class="anchor" href="#contact%E8%81%94%E7%B3%BB%E6%96%B9%E5%BC%8F" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>contact/联系方式</h2>
+
+<p><a href="mailto:609610350@qq.com">609610350@qq.com</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Miniorm-mysql maintained by <a href="https://github.com/xinyi-spark">xinyi-spark</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
