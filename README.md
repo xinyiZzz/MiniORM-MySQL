@@ -13,9 +13,9 @@ By joining together the SQL statement, lightweight MySQL ORM
 ## examples/使用范例
 
 - database connection/数据库连接
-
-	mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',mysql_db='')
-
+```
+mysql_handle = MysqlHandleBase(mysql_host='127.0.0.1', mysql_user='root', mysql_password='',mysql_db='')
+```
 - Query example/查询举例
 ```
 table_name = 'gray_list'
