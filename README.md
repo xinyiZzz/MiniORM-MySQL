@@ -5,12 +5,12 @@
 * * *
 
 
-## system function/系统功能
+## function/系统功能
 
 By joining together the SQL statement, lightweight MySQL ORM  
 通过拼接SQL语句，实现轻量级MySQL ORM
 
-## Use examples/使用范例
+## examples/使用范例
 
 - database connection/数据库连接
 
