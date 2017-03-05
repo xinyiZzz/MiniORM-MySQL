@@ -1,9 +1,10 @@
 ## June 2 2016 9:14 AM
 
 # MiniMySQL-MysqlORM
+Based on the MySQLdb provide formatting Mysql light-weight ORM
+基于MySQLdb提供格式化操作Mysql的轻量级ORM
 
 * * *
-
 
 ## function/系统功能
 
@@ -85,6 +86,12 @@ table_name = 'followers_big'
 fields_list = [{'uid': [1, 's']}, {'uid': [2, 's']}]
 wheres_list = [{'id': [154, 'd']}, {'id': [155, 'd']}]
 print mysql_handle.batch_delete(table_name, fields_list, wheres_list)
+```
+
+## setup/安装配置
+```
+sudo apt-get install mysql-server
+apt-get install python-mysqldb
 ```
 
 ## contact/联系方式
